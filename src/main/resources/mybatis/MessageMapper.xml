@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.recruit.dao.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.recruit.pojo.Message" >
+    <id column="message_id" property="messageId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="release_time" property="releaseTime" jdbcType="VARCHAR" />
+    <result column="deadline" property="deadline" jdbcType="VARCHAR" />
+    <result column="place" property="place" jdbcType="VARCHAR" />
+    <result column="issuer" property="issuer" jdbcType="INTEGER" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="is_private" property="isPrivate" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    message_id, title, release_time, deadline, place, issuer, company, content, type, 
+    is_private
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from message
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from message
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.recruit.pojo.Message" >
+    insert into message (message_id, title, release_time, 
+      deadline, place, issuer, 
+      company, content, type, 
+      is_private)
+    values (#{messageId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{releaseTime,jdbcType=VARCHAR}, 
+      #{deadline,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, #{issuer,jdbcType=INTEGER}, 
+      #{company,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{isPrivate,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.recruit.pojo.Message" >
+  <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="messageId" >
+       SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        message_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="releaseTime != null" >
+        release_time,
+      </if>
+      <if test="deadline != null" >
+        deadline,
+      </if>
+      <if test="place != null" >
+        place,
+      </if>
+      <if test="issuer != null" >
+        issuer,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="isPrivate != null" >
+        is_private,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseTime != null" >
+        #{releaseTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        #{deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="issuer != null" >
+        #{issuer,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="isPrivate != null" >
+        #{isPrivate,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.recruit.pojo.Message" >
+    update message
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseTime != null" >
+        release_time = #{releaseTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        deadline = #{deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="issuer != null" >
+        issuer = #{issuer,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="isPrivate != null" >
+        is_private = #{isPrivate,jdbcType=TINYINT},
+      </if>
+    </set>
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.recruit.pojo.Message" >
+    update message
+    set title = #{title,jdbcType=VARCHAR},
+      release_time = #{releaseTime,jdbcType=VARCHAR},
+      deadline = #{deadline,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      issuer = #{issuer,jdbcType=INTEGER},
+      company = #{company,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      is_private = #{isPrivate,jdbcType=TINYINT}
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+</mapper>

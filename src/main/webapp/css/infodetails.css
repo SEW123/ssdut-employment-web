@@ -1,0 +1,36 @@
+
+
+.cc_right .subtitle-info {
+    width: 100%;
+    height: 50px;
+    position: relative;
+}
+.cc_right .subtitle-info .feedback{
+    float: left;
+    margin-left: 10px;
+}
+.cc_right .subtitle-info .feedback a {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+.cc_right .subtitle-info .toexcel{
+    float: left;
+    margin-left: 10px;
+}
+.cc_right .subtitle-info .toexcel a {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+.cc_right .subtitle-info > .subtitle-type,.cc_right .subtitle-info > .subtitle-time {
+    float: right;
+    margin-right: 20px;
+}
+.cc_right .info {
+    width: 100%;
+    text-align: center;
+    line-height: 25px;
+    border: 1px solid #036eb8;
+    margin-bottom: 30px;
+}
