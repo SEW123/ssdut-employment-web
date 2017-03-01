@@ -5,7 +5,7 @@
 	version="2.5">
 	<display-name>ssdut-employment-web</display-name>
 	 <welcome-file-list>  
-        <welcome-file>teacher/tlogin.jsp</welcome-file>  
+        <welcome-file></welcome-file>  
     </welcome-file-list> 
 
 	<listener>
