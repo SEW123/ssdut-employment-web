@@ -57,17 +57,11 @@ public class StudentSideController {
 		this.studentService = studentService;
 	}
 
-	@RequestMapping("/login")
-	public String login(HttpServletResponse response, HttpSession session, String studentId, String password,
-			Model model) throws IOException {
-		Student student = studentService.check(Integer.parseInt(studentId), password);
-		PrintWriter out = response.getWriter();
-		if (student == null) {
-			out.print("<script language='javascript'>alert('用户名或密码错误!!!');window.location='../slogin.jsp';</script>");
-			return null; 
-		}
-		session.setAttribute("studentId", studentId);
-		return "index.do";
+	@RequestMapping("/getUid")
+	public String login(String uid, Model model){
+		
+		model.addAttribute("uid", uid);
+		return "sregister.jsp";
 	}
 	@RequestMapping("/sregister")
 	public String register(String name, String studentId, String email, String uid,

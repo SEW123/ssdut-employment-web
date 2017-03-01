@@ -55,7 +55,7 @@
 				<div class="form-group">
 					<p class="col-xs-offset-2 col-xs-7">大工软院就业预测平台</p>
 					<div class="col-xs-3">
-						<button type="submit" class="btn btn-default">注册</button>
+						<button type="submit" class="btn btn-default" value=${uid } name="uid" >注册</button>
 					</div>
 				</div>
 			</form>
