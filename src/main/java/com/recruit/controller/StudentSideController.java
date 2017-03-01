@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,13 +59,14 @@ public class StudentSideController {
 	}
 
 	@RequestMapping("/getUid")
-	public String login(String uid, Model model){
+	public String login(@Param("uid") String uid, Model model){
 		
 		model.addAttribute("uid", uid);
 		return "sregister.jsp";
 	}
 	@RequestMapping("/sregister")
-	public String register(String name, String studentId, String email, String uid,
+	public String register(@Param("name") String name,@Param("studentId") String studentId, 
+			@Param("email") String email, @Param("uid") String uid,
 			HttpServletResponse response, HttpSession session){
 		Student student = studentService.getStudentById(Integer.parseInt(studentId));
 		if(student != null){
