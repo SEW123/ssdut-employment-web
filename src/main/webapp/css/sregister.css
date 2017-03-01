@@ -1,0 +1,74 @@
+.content {
+	height: 300px;
+	width: 100%;
+	padding: 0 10px;
+}
+
+.registerbox {
+	margin: 50px auto;
+	width: 100%;
+	height: 320px;
+	border: 2px solid #369;
+	padding: 50px 20px;
+	border-radius: 10px;
+	background-color: #fff;
+}
+
+.registerbox  .divider {
+	height: 1px;
+	background-color: #369;
+	margin: 20px 0;
+}
+
+.btn-more {
+	width: 100%;
+}
+
+.selectbox {
+	padding-top: 10px;
+	height: 40px;
+}
+
+.selectbox .btn {
+	float: right;
+	height: 30px;
+	line-height: 30px;
+	margin-right: 10px;
+	padding: 0 10px;
+}
+
+.subtitle-info {
+	width: 100%;
+	height: 40px;
+	position: relative;
+}
+
+.subtitle-info>.subtitle-type, .subtitle-info>.subtitle-time {
+	float: right;
+	height: 30px;
+	line-height: 30px;
+	margin-right: 10px;
+	padding: 0 10px;
+}
+
+.info {
+	width: 100%;
+	text-align: center;
+	line-height: 20px;
+	border: 2px solid #036eb8;
+	margin-bottom: 10px;
+}
+
+.aboutme {
+	padding: 10px 0;
+	height: 40px;
+	margin-bottom: 5px;
+}
+
+.aboutme input {
+	float: right;
+	height: 30px;
+	line-height: 30px;
+	margin-right: 20px;
+	padding: 0 10px;
+}

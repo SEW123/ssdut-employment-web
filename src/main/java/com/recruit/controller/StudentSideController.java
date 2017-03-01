@@ -64,12 +64,51 @@ public class StudentSideController {
 		PrintWriter out = response.getWriter();
 		if (student == null) {
 			out.print("<script language='javascript'>alert('用户名或密码错误!!!');window.location='../slogin.jsp';</script>");
-			return null;
+			return null; 
 		}
 		session.setAttribute("studentId", studentId);
-		return "index";
+		return "index.do";
 	}
+	@RequestMapping("/sregister")
+	public String register(String name, String studentId, String email, String uid,
+			HttpServletResponse response, HttpSession session){
+		Student student = studentService.getStudentById(Integer.parseInt(studentId));
+		if(student != null){
+			PrintWriter out;
+			
+			try {
+				out = response.getWriter();
+				if(student.getUid().equals(uid)){
+					out.print("<script language='javascript'>alert('您已注册！');window.location='sregister.jsp';</script>");
 
+				}
+				else{
+					out.print("<script language='javascript'>alert('该学号已被注册！');window.location='sregister.jsp';</script>");
+				}
+				return null; 
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("获取PrintWriter失败！");
+				return "sregister.jsp";
+			}
+			
+		}
+		student = new Student();
+		student.setMail(email);
+		student.setName(name);
+		student.setStudentId(Integer.parseInt(studentId));
+		student.setUid(uid);
+		try {
+			studentService.insertSelective(student);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("插入学生信息失败");
+			e.printStackTrace();
+			return "sregister.jsp";
+		}
+		session.setAttribute("studentId", studentId);
+		return "index.do";
+	} 
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request, HttpSession session, Model model) {
 		List<Message> list = messageService.selectAll();

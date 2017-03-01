@@ -7,7 +7,7 @@ public class Student {
 
     private String mail;
 
-    private String password;
+    private String uid;
 
     private Integer timesOfBreakContact;
 
@@ -35,12 +35,12 @@ public class Student {
         this.mail = mail == null ? null : mail.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public String getUid() {
+        return uid;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setUid(String uid) {
+        this.uid = uid == null ? null : uid.trim();
     }
 
     public Integer getTimesOfBreakContact() {
