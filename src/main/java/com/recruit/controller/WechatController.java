@@ -1,6 +1,8 @@
 package com.recruit.controller;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,15 +26,6 @@ import com.recruit.util.WeChatSignUtil;
 @RequestMapping("wechat")
 public class WechatController {
 	
-	
-	
-	public static void main(String[] args) {
-		
-		String full="1";
-		int fulls = Integer.parseInt(full);
-		System.out.println(fulls);
-	}
-
 	@Autowired
 	private WeChatService weChatService;
 
@@ -64,8 +57,12 @@ public class WechatController {
 	}
 
 	@RequestMapping(value = "message", method = RequestMethod.POST)
-	public @ResponseBody String weChatPost(HttpServletRequest request, HttpServletResponse response) {
+	public void weChatPost(HttpServletRequest request, HttpServletResponse response) {
 
+		String encryptMsg=null;
+		
+		response.setCharacterEncoding("UTF-8");
+		
 		Map<String, String> requestMap =null;
 				
 		try{
@@ -76,11 +73,23 @@ public class WechatController {
 				
 		if(requestMap==null){
 			
-			return "您输入的消息有误";
+			encryptMsg= "您输入的消息有误";
 		}
 		
-		return weChatService.processRequest(requestMap);
+		encryptMsg= weChatService.processRequest(requestMap);
 		
+		PrintWriter out=null;
+		try {
+			
+			out = response.getWriter();
+			
+			out.print(encryptMsg);
+			out.close();
+			
+		} catch (IOException e) {
+
+		}
+				
 	}
 
 	@SuppressWarnings("unchecked")

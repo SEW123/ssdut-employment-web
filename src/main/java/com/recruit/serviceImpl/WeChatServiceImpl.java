@@ -71,7 +71,7 @@ public class WeChatServiceImpl implements WeChatService {
 			
 			if("实习就业".equals(content)){
 				
-				return getSsdutList(toUserName, fromUserName);
+				return getSsdutList(fromUserName,toUserName);
 				
 			}
 			
