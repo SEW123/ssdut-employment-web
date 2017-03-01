@@ -43,13 +43,7 @@
 							class="form-control" placeholder="请输入邮箱">
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="uid" class="col-xs-3 control-label">Uid</label>
-					<div class="col-xs-9">
-						<input id="uid" name="uid" type="text"
-							class="form-control" placeholder="Uid测试">
-					</div>
-				</div>
+				
 				<div class="divider"></div>
 
 				<div class="form-group">
