@@ -23,7 +23,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${list}" begin="${count-10>0? count-10:0}" end="${count-1>0? count-1:0}" var="message">
+						<c:forEach items="${list}" begin="${count-10>0? count-10:0}" end="${count-1}" var="message">
 							<tr>
 								<td><a href="godetails.do?messageId=${message.messageId}">${message.title}</a></td>
 							</tr>
