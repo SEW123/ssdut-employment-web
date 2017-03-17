@@ -12,7 +12,7 @@ public class CheckSession {
 		try {
 			out = response.getWriter();
 			try {
-				String teacherId = session.getAttribute("teacherId").toString();
+	
 				return true;
 			} catch (Exception e) {
 				// TODO: handle exception

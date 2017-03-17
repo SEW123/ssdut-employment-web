@@ -12,10 +12,10 @@
 <link href="../css/slogin.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	
+
 	<div class="c_warp_bor">
 		<div class="c_warp">
-			<div class="xs-info-list table-responsive">
+			<div class="xs-info-list ">
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -23,25 +23,25 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${list}" begin="${count-10>0? count-10:0}" end="${count-1}" var="message">
+						<c:forEach items="${list}" begin="${0}" end="${list.size()}"
+							var="message">
 							<tr>
-								<td><a href="godetails.do?messageId=${message.messageId}">${message.title}</a></td>
+								<td><a href="godetails.do?pp=0&messageId=${message.messageId}&studentId=${studentId}&page=${page}">${message.title}</a></td>
 							</tr>
 						</c:forEach>
 				</table>
 			</div>
-			
+
 			<div class="control-page" style="text-align: center;">
-						<c:if test="${count<=10 && full != -1}">
-							<a id="one" class="btn btn-primary" href="getSelf.do?count=${count}&type=1">下一页</a>
-						</c:if>
-						<c:if test="${full== -1 && count >10}">
-							<a id="one" class="btn btn-primary" href="getSelf.do?count=${count}&type=-1">上一页</a>
-						</c:if>
-						<c:if test="${full!=-1&&count>10}">
-							<a id="last" class="btn btn-primary" href="getSelf.do?count=${count}&type=-1">上一页</a>
-                    		<a id="next" class="btn btn-primary" href="getSelf.do?count=${count}&type=1">下一页</a>
-						</c:if>
+
+				<c:if test="${page > 1}">
+					<a style="margin-right: 10%" id="one" class="btn btn-primary"
+						href="getSelf.do?page=${page-1}&studentId=${studentId}">上一页</a>
+				</c:if>
+				<c:if test="${page < pagetotal}">
+					<a id="one" class="btn btn-primary"
+						href="getSelf.do?page=${page+1}&studentId=${studentId}">下一页</a>
+				</c:if>
 			</div>
 		</div>
 	</div>

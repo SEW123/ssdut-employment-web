@@ -13,7 +13,7 @@
 	<!-- [公共Appender] -->
 	<appender name="DEFAULT-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="File"
-			value="E:/myproject/logs/java/ssdut-empinfo/logs/common/common-default.log" />
+			value="/usr/local/data/log/ssdut-empinfo/logs/common/common-default.log" />
 		<param name="Append" value="true" />
 		<param name="encoding" value="GBK" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
@@ -26,7 +26,7 @@
 	<!-- [错误日志APPENDER] -->
 	<appender name="ERROR-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="File"
-			value="E:/myproject/logs/java/ssdut-empinfo/logs/error/common-error.log" />
+			value="/usr/local/data/log/ssdut-empinfo/logs/error/common-error.log" />
 		<param name="Append" value="true" />
 		<param name="encoding" value="GBK" />
 		<param name="threshold" value="error" />
@@ -39,7 +39,7 @@
 	<!-- [组件日志APPENDER] -->
 	<appender name="COMPONENT-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="File"
-			value="E:/myproject/logs/java/ssdut-empinfo/logs/component/logistics-component.log" />
+			value="/usr/local/data/log/ssdut-empinfo/logs/component/logistics-component.log" />
 		<param name="Append" value="true" />
 		<param name="encoding" value="GBK" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />

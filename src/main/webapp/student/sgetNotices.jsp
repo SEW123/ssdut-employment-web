@@ -17,9 +17,9 @@
 		<div class="c_warp">
 			<div class="aboutme">
 				<input type="button" class="btn btn-primary" value="与我相关"
-					onclick="goSelf()">
+					onclick="window.location.href = 'getSelf.do?studentId=${studentId}';">
 			</div>
-			<div class="xs-info-list table-responsive">
+			<div class="xs-info-list ">
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -28,9 +28,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${list}" begin="${count-10>0? count-10:0}" end="${count-1>0? count-1:0}" var="message">
+						<c:forEach items="${list}" begin="${0}" end="${list.size()}"
+							var="message">
 							<tr>
-								<td><a href="godetails.do?messageId=${message.messageId}">${message.title}</a></td>
+								<td><a href="godetails.do?pp=1&messageId=${message.messageId}&studentId=${studentId}&page=${page}">${message.title}</a></td>
 								<c:if test="${message.isPrivate==0}">
 									<td id="t2">公开</td>
 								</c:if>
@@ -42,18 +43,14 @@
 					</tbody>
 				</table>
 			</div>
-			
+
 			<div class="control-page" style="text-align: center;">
-						<c:if test="${count<=10 && full != -1}">
-							<a id="one" class="btn btn-primary" href="index.do?count=${count}&type=1">下一页</a>
-						</c:if>
-						<c:if test="${full== -1 && count >10}">
-							<a id="one" class="btn btn-primary" href="index.do?count=${count}&type=-1">上一页</a>
-						</c:if>
-						<c:if test="${full!=-1&&count>10}">
-							<a id="last" class="btn btn-primary" href="index.do?count=${count}&type=-1">上一页</a>
-                    		<a id="next" class="btn btn-primary" href="index.do?count=${count}&type=1">下一页</a>
-						</c:if>
+				<c:if test="${page > 1}">
+					<a id="one" style="margin-right: 10%" class="btn btn-primary" href="index.do?page=${page-1}&studentId=${studentId}">上一页</a>
+				</c:if>
+				<c:if test="${page < pagetotal}">
+					<a id="one" class="btn btn-primary" href="index.do?page=${page+1}&studentId=${studentId}">下一页</a>
+				</c:if>
 			</div>
 		</div>
 	</div>

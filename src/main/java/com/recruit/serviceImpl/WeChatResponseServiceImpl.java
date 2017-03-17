@@ -57,7 +57,7 @@ public class WeChatResponseServiceImpl implements WeChatResponseService {
 		rootXML.addContent(new Element("FromUserName").setText(FromName));
 		rootXML.addContent(new Element("CreateTime").setText(times));
 		rootXML.addContent(new Element("MsgType").setText("news"));
-		rootXML.addContent(new Element("ArticleCount").setText("7"));
+		rootXML.addContent(new Element("ArticleCount").setText(newsList.size()+""));
 
 		Element Articles = new Element("Articles");
 

@@ -21,7 +21,7 @@
 	<div class="content">
 		<div class="registerbox">
 			<form id="form1" class="form-horizontal" action="sregister.do"
-				method="post" onSubmit="return mycheck()">
+				method="get" onSubmit="return mycheck()">
 				<div class="form-group">
 					<label for="name" class="col-xs-3 control-label">姓名</label>
 					<div class="col-xs-9">

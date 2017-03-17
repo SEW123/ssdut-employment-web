@@ -1,35 +1,19 @@
 $(function() {
 	setName();
-	
-	if($('.form .table > tbody').children().length == 1){	
-		console.log(111);
-		$('.form .table > tbody .btn-table-delete').attr('disabled','true');
-	}else {
-		console.log(222);
-		$('.form .table > tbody .btn-table-delete').attr('disabled','false');
-	}
-	
 	$('#btn-table-add')
 			.on(
 					'click',
 					function() {
-						
-						if($('.form .table > tbody').children().length == 1){	
-							$('.form .table > tbody .btn-table-delete').attr('disabled','true');
-						}else {
-							$('.form .table > tbody .btn-table-delete').attr('disabled','false');
-						}
-						
 						$('.form .table > tbody')
 								.append(
 										$('<tr>'
 												+ '<td>'
-												+ '<input type="text" class="form-control" placeholder="学号123">'
+												+ '<input type="text" class="form-control" placeholder="学号">'
 												+ '</td>'
 												+ '<td>'
 												+ '<input type="text" class="form-control" placeholder="姓名">'
 												+ '</td>'
-										 		+ '<td>'
+												+ '<td>'
 												+ '<input type="email" class="form-control" placeholder="Email">'
 												+ '</td>'
 												+ '<td>'
@@ -47,18 +31,10 @@ $(function() {
 							$($(this).parent().parent()).remove();
 							setName();
 						});
-						
-						
 					});
 	$('.btn-table-delete').on('click', function() {
 		$($(this).parent().parent()).remove();
 		setName();
-		
-		if($('.form .table > tbody').children().length == 1){	
-			$('.form .table > tbody .btn-table-delete').attr('disabled','true');
-		}else {
-			$('.form .table > tbody .btn-table-delete').attr('disabled','false');
-		}
 	});
 
 	function setName() {
@@ -137,51 +113,77 @@ function typeChange() {
 
 }
 
-//function getPlainTxt() {
-//	if (newInformCheck() == false)
-//		return false;
-//	var objS = document.getElementById("type");
-//	var value = objS.options[objS.selectedIndex].value;
-//	var arr = [];
-//	arr.push("标题：" + document.getElementById("title").value);
-//	var objT = document.getElementById("type");
-//	var valueT = objT.options[objT.selectedIndex].value;
-//	arr.push("通知类型：" + valueT);
-//	var objR = document.getElementById("type");
-//	var valueR = objR.options[objR.selectedIndex].value;
-//	if (valueR == 1)
-//		arr.push("私有");
-//	else
-//		arr.push("公开");
-//	arr.push("地点：" + document.getElementById("place").value);
-//	var ui = document.getElementById("deadlinediv");
-//	if (ui.style.display != "none")
-//		arr.push("截止时间：" + document.getElementById("deadline").value);
-//	arr.push("通知内容：" + UM.getEditor('myEditor').getPlainTxt());
-//
-//	var len = $('.form .table > tbody > tr').length;
-//	for (var i = 0; i < len; i++) {
-//		var studentInfo = "学生信息：";
-//		for (var j = 0; j < 5; j++) {
-//			var curValue = $(
-//					'.form .table > tbody > tr:eq(' + i + ') > td:eq(' + j
-//							+ ') >input').val();
-//			if (curValue != "") {
-//				studentInfo += curValue + ' ';
-//			}
-//		}
-//		arr.push(studentInfo);
-//	}
-//	arr = arr.join('\n');
-//	var hide = document.getElementById("hide");
-//	hide.style.display = "";
-//	var clipboard = document.getElementById("clipboard");
-//	clipboard.value = arr;
-//	clipboard.select(); // 选择对象
-//	document.execCommand("Copy"); // 执行浏览器复制命令
-//	alert(arr + "\n\n通知已复制到剪贴板，可以直接粘贴！");
-//}
-//function hideDiv() {
-//	var hide = document.getElementById("hide");
-//	hide.style.display = "none";
-//}
+function submit(){
+	//tijiao
+	var data = new FormData();
+	var title = $('form #title').val();
+	var type = $('form #type').val();
+	var isPrivate = $('form #right').val();
+	var place = $('form #place').val();
+	var deadline = $('form #deadline').val();
+	var content = $('form #myEditor').val();
+	data.append('title', title);
+	data.append('type', type);
+	data.append('isPrivate', isPrivate);
+	data.append('place', place);
+	data.append('deadline', deadline);
+	data.append('content', content);
+	$('#table tbody tr').each(function(index,ele){
+		var studentId = $(this).children('td:eq(0) > input').val();
+		var name = $(this).children('td:eq(1) > input').val();
+		var mail = $(this).children('td:eq(2) > input').val();
+		var job = $(this).children('td:eq(3) > input').val();
+		var note = $(this).children('td:eq(4) > input').val();
+		
+		data.append('infoViewList['+index+'].studentId', studentId);
+		data.append('infoViewList['+index+'].name', name);
+		data.append('infoViewList['+index+'].mail', mail);
+		data.append('infoViewList['+index+'].job', job);
+		data.append('infoViewList['+index+'].note', note);
+	});
+
+	doPost({
+	    url: "http://10.31.248.250:8080/ssdut-employment-web/teacher/newInform.do",
+	    data: data
+	}, function (data) {      
+	    // 成功
+		
+		alert(data);
+		console.log(data);
+		
+	}, function (error) {
+
+	    if (error.serverError) {
+	        alert('服务器错误，请稍候再试！');
+	    } else {
+	        switch(error.code){
+	            default:
+	                alert("未知错误!");
+	                break;
+	        }
+	    }
+	});
+}
+
+
+
+function doPost(options, callback1, callback2) {
+    $.ajax({
+        type: 'POST',
+        url: options.url,
+        data: options.data,
+        dataType: 'text',
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            if (data.code != 0) {
+                callback2(data);
+                return;
+            }
+            callback1(data);
+        },
+        error: function (error) {
+            callback2({serverError: true});
+        }
+    });
+}

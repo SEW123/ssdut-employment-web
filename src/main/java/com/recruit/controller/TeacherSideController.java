@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.recruit.pojo.M2sList;
 import com.recruit.pojo.Message;
@@ -86,19 +87,16 @@ public class TeacherSideController {
 		try {
 			out = response.getWriter();
 			if (teacher == null) {
-				out.print(
-						"<script language='javascript'>alert('无该用户！');" + "window.location='tlogin.jsp';</script>");
+				out.print("<script language='javascript'>alert('无该用户！');" + "window.location='tlogin.jsp';</script>");
 				return null;
 			} else if (!password.equals(teacher.getPassword().trim())) {
-				out.print(
-						"<script language='javascript'>alert('密码错误！');" + "window.location='tlogin.jsp';</script>");
+				out.print("<script language='javascript'>alert('密码错误！');" + "window.location='tlogin.jsp';</script>");
 				return null;
 			} else if (password.equals(teacher.getPassword().trim())) {
 				session.setAttribute("teacherId", teacherId);
 				return "infolist.do";
 			} else {
-				out.print(
-						"<script language='javascript'>alert('未知错误！');" + "window.location='tlogin.jsp';</script>");
+				out.print("<script language='javascript'>alert('未知错误！');" + "window.location='tlogin.jsp';</script>");
 			}
 			return "tlogin.jsp";
 
@@ -118,128 +116,134 @@ public class TeacherSideController {
 	}
 
 	@RequestMapping("/infolist")
-	public String infolist(HttpServletRequest request, HttpSession session,HttpServletResponse response,Model model) {
-		CheckSession checkSession = new CheckSession();
-		if(checkSession.checkSession(session, response)){
-			List<Message> mList = messageService.selectAll();
-			model.addAttribute("messagelist", mList);
-			int count = 10;
-			if (request.getParameter("count") != null) {
-				// System.out.println(request.getParameter("count") + "!!!");
-				// 确保count为进一的整十
-				count = (Integer.parseInt(request.getParameter("count").trim()) + 9) / 10 * 10;
-				String type = request.getParameter("type");
-				// System.out.println(type);
-				// System.out.println(("1".equals(type)));
-				if ("-1".equals(type))
-					count = count - 10;
-				if ("1".equals(type))
-					count = count + 10;
-			}
-			if (count >= mList.size()) {
-				count = mList.size();
-				model.addAttribute("full", -1);
-			}
-			// System.out.println(count);
-			model.addAttribute("count", count);
-			return "infolist.jsp";
+	public String infolist(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model) {
+		// if(checkSession.checkSession(session, response)){
+		// List<Message> mList = messageService.selectAll();
+		// model.addAttribute("messagelist", mList);
+		// int count = 10;
+		// if (request.getParameter("count") != null) {
+		// // System.out.println(request.getParameter("count") + "!!!");
+		// // 确保count为进一的整十
+		// count = (Integer.parseInt(request.getParameter("count").trim()) + 9)
+		// / 10 * 10;
+		// String type = request.getParameter("type");
+		// // System.out.println(type);
+		// // System.out.println(("1".equals(type)));
+		// if ("-1".equals(type))
+		// count = count - 10;
+		// if ("1".equals(type))
+		// count = count + 10;
+		// }
+		// if (count >= mList.size()) {
+		// count = mList.size();
+		// model.addAttribute("full", -1);
+		// }
+		// // System.out.println(count);
+		// model.addAttribute("count", count);
+		// return "infolist.jsp";
+		// }
+		// else {
+		// return null;
+		// }
+		int page = 1;
+		int pageTotal = 1;
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
 		}
-		else {
-			return null;
+		try {
+			pageTotal = studentService.getNumOfMessage() / 10 + 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("获取message条数失败");
+			e.printStackTrace();
 		}
-		
+		List<Message> list = studentService.getPublicMessage(page);
+		model.addAttribute("page", page);
+		System.out.println("page" + page);
+		model.addAttribute("pagetotal", pageTotal);
+		System.out.println("pageTotal" + pageTotal);
+		model.addAttribute("list", list);
+		return "infolist.jsp";
 	}
 
 	@RequestMapping("/infodetails")
-	public String infodetails(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model) {
-		CheckSession checkSession = new CheckSession();
-		if(checkSession.checkSession(session, response)){
-			int messageId = Integer.parseInt(request.getParameter("messageId"));
+	public String infodetails(HttpServletRequest request, HttpSession session, HttpServletResponse response,
+			Model model) {
+		int messageId = Integer.parseInt(request.getParameter("messageId"));
 
-			Message message = messageService.getMessageById(messageId);
+		Message message = messageService.getMessageById(messageId);
 
-			List<Message2student> infoViewList = m2sService.getAllStudent(messageId);
+		List<Message2student> infoViewList = m2sService.getAllStudent(messageId);
 
-			model.addAttribute("message", message);
-			model.addAttribute("viewlist", infoViewList);
+		model.addAttribute("message", message);
+		model.addAttribute("viewlist", infoViewList);
 
-			return "infodetails.jsp";
-		}
-		else {
-			return null;
-		}
-		
+		return "infodetails.jsp";
+
 	}
 
 	@RequestMapping("/infofeedback")
-	public String infofeedback(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model) {
-		CheckSession checkSession = new CheckSession();
-		if(checkSession.checkSession(session, response)){
-			int messageId = Integer.parseInt(request.getParameter("messageId"));
+	public String infofeedback(HttpServletRequest request, HttpSession session, HttpServletResponse response,
+			Model model) {
+		int messageId = Integer.parseInt(request.getParameter("messageId"));
 
-			Message message = messageService.getMessageById(messageId);
+		Message message = messageService.getMessageById(messageId);
 
-			List<Message2student> infoViewList = m2sService.getAllStudent(messageId);
+		List<Message2student> infoViewList = m2sService.getAllStudent(messageId);
 
-			model.addAttribute("message", message);
-			model.addAttribute("viewlist", infoViewList);
+		model.addAttribute("message", message);
+		model.addAttribute("viewlist", infoViewList);
 
-			return "infofeedback.jsp";
-		}
-		else {
-			return null;
-		}
-		
+		return "infofeedback.jsp";
+
 	}
 
 	@RequestMapping("/newInform")
-	public String newInform(Message message, M2sList infoViewList, HttpSession session, HttpServletResponse response) {
-		System.out.println(message.getType());
-		CheckSession checkSession = new CheckSession();
-		if(checkSession.checkSession(session, response)){
+	public @ResponseBody String newInform(Message message, M2sList infoViewList, HttpSession session, HttpServletResponse response) {
+		
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			
+			for(Message2student view : infoViewList.getInfoViewList()){
+				//判断该学生毁约次数是否大于两次
+				int timeOfBreakContact = 0;
+				try {
+					timeOfBreakContact = studentService.getTimesOfBreakContact(view.getStudentId());
+				} catch (Exception e) {
+					// TODO: handle exception
+					System.out.println("检索"+view.getStudentId()+"的毁约次数失败！");
+					return null;
+				}
+				if(timeOfBreakContact >= 2 ){
+					
+					out.print("<script language='javascript'>alert('学号为"+view.getStudentId()+"的同学已毁约两次！');" + "window.location='newInform.jsp';</script>");
+					return null;
+				}
+			}
+			
 			// 获取当前日期时间并加入到message中
 			Date date = new Date();
 			DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			String curTime = format.format(date);
 			message.setReleaseTime(curTime);
-
-			// 判断通知学生是否存在于student表中
-			// StudentDAO studentDAO = (StudentDAO)
-			// MyBeansFactory.getBeans("studentdao");
-			// for (Message2student view : infoViewList.getM2sList()) {
-			//
-			// Student student = studentDAO.getStudentById(view.getStudent_id());
-			// PrintWriter out;
-			// try {
-			// out = response.getWriter();
-			// if (student == null) {
-			// out.print("<script language='javascript'>alert('学号为" +
-			// view.getStudent_id()
-			// + "的同学不在数据库中');window.location='newInform.jsp';</script>");
-			// return null;
-			// }
-			// } catch (IOException e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// System.out.println("getWriter失败！");
-			// return "newInform.jsp";
-			// }
-			//
-			// }
-
+			
+			
 			int teacherId = Integer.parseInt(session.getAttribute("teacherId").toString());
 			message.setIssuer(teacherId);
 			messageService.insertSelective(message);
 			int messageId = message.getMessageId();
 			System.out.println("teacherId:" + teacherId);
-
+			
 			for (Message2student view : infoViewList.getInfoViewList()) {
+				
 				view.setMessageId(messageId);
-
-				if (view.getMail() == "") {
+				if (view.getMail() == ""){
 					Student student = studentService.getStudentById(view.getStudentId());
-					if (student != null)
+					if (student != null){
 						view.setMail(student.getMail().trim());
+					}
+						
 				}
 
 				try {
@@ -267,16 +271,20 @@ public class TeacherSideController {
 					System.out.println("发送邮件失败");
 				} finally {
 					// TODO: handle finally clause
-					System.out.println("!!!" + view.getStudentId());
+					System.out.println("!!!"+view.getStudentId());
 					m2sService.insertMessage2student(view);
 					System.out.println("插入成功");
 				}
 			}
-			return "infodetails.do?messageId=" + messageId;
-		}
-		else {
-			return null;
+			return "infolist.do";
+//			return "infodetails.do?messageId=" + messageId;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			//System.out.println("getWriter失败！");
+			return "newInform.jsp";
 		}
 		
+
 	}
 }

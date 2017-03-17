@@ -56,7 +56,7 @@ public class SsdutEmpInfoServiceImpl implements SsdutEmpInfoService {
 
 		try {
 
-			list = ssdutEmpInfoDao.getPageList((page - 1) * 6);
+			list = ssdutEmpInfoDao.getPageList((page - 1) * 10);
 		} catch (Exception e) {
 
 		}

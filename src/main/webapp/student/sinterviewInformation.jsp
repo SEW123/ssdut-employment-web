@@ -15,15 +15,36 @@
 <body>
 	<div class="c_warp_bor">
 		<div class="c_warp">
-			<c:if test="${has!=null}">
+		
+		<div class="subtitle">
+     		
+     		<c:if test="${pp==1}">
 				<div class="selectbox">
-					<input type="button" id="refuse" class="btn btn-success" value="拒绝"
-						onclick="javascript:window.location.href='refuse.do?messageId=${message.messageId}'">
-					<input type="button" id="accept" class="btn btn-danger" value="接受"
-						onclick="javascript:window.location.href='accept.do?messageId=${message.messageId}'">
+					<input type="button" class="btn btn-primary" id="privatelist" value="返回列表" width="100%"
+						onclick="javascript:window.location.href='index.do?studentId=${studentId}&page=${page}'"/>
 				</div>
 			</c:if>
-
+			
+			<c:if test="${pp==0}">
+				
+					<input type="button" class="btn btn-primary" id="privatelist" value="返回列表" width="100%"
+						onclick="javascript:window.location.href='getSelf.do?studentId=${studentId}&page=${page}'"/>
+					
+			</c:if>
+     		</div>
+			<c:if test="${has==1}">
+				<div class="selectbox">
+					<input type="button" id="refuse" class="btn btn-success" value="拒绝"
+						onclick="javascript:window.location.href='refuse.do?messageId=${message.messageId}&studentId=${studentId }'">
+					<input type="button" id="accept" class="btn btn-danger" value="接受"
+						onclick="javascript:window.location.href='accept.do?messageId=${message.messageId}&studentId=${studentId }'">
+				</div>
+			</c:if>
+			<c:if test="${has==-1}">
+				<div class="selectbox">
+					<span class="subtitle-type btn-default btn disabled">${state}</span>
+				</div>
+			</c:if>
 			<div class="subtitle">
 				<span>${message.title}</span>
 			</div>

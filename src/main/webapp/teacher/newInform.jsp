@@ -11,7 +11,7 @@
 <link href="../css/bootstrap.css" rel="stylesheet">
 <link href="../css/base.css" rel="stylesheet">
 
-<script src="http://libs.useso.com/js/jquery/2.1.0/jquery.min.js"></script>
+<script src="../umeditor/third-party/jquery.min.js"></script>
 <script type="text/javascript" charset="utf-8"
 	src="../umeditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8"
@@ -114,7 +114,7 @@
 					</textarea>
 								</div>
 							</div>
-							<table class="table">
+							<table class="table" id="table">
 								<thead>
 									<tr>
 										<th>学号*</th>
@@ -151,7 +151,7 @@
 							</div>
 							<div class="form-group">
 								<div class="col-sm-offset-10 col-sm-2">
-									<button type="submit" class="btn btn-primary">确定发布</button>
+									<button type = "submit" class="btn btn-primary">确定发布</button>
 								</div>
 							</div>
 

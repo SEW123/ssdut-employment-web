@@ -86,11 +86,11 @@ img {
 
 	<div id="container">
 
-		<div style="width: 100%; height: 5px; background: #ee5800"></div>
+		<div style="width: 100%; height: 5px; background: #0080c0"></div>
 		<header align="center">
 		<h1><%=empInfo.getTitle()%></h1>
 		</header>
-		<div style="width: 100%; height: 5px; background: #ee5800"></div>
+		<div style="width: 100%; height: 5px; background: #0080c0"></div>
 		<nav id="main">
 		<div class="STYLE2"
 			style="text-indent: 2em; list-style: none; width: 320px; line-height: 1.8">

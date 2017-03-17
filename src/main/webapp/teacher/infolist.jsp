@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -33,7 +33,8 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 		<div class="c_warp">
 			<div class="titlebar">
 				<span>实习生就业服务系统</span>
-				<button onclick="window.location='logout.do'" class="btn btn-primary">注销</button>
+				<button onclick="window.location='logout.do'"
+					class="btn btn-primary">注销</button>
 			</div>
 			<div class="c_content">
 				<div class="cc_left col-md-2">
@@ -56,8 +57,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${messagelist}"
-									begin="${count-10>0? count-10:0}" end="${count-1}"
+								<c:forEach items="${list}" begin="${0}" end="${list.size()}"
 									var="message">
 									<tr>
 										<td id="t"><a
@@ -69,15 +69,13 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 						</table>
 					</div>
 					<div class="control-page">
-						<c:if test="${count<=10 && full != -1}">
-							<a id="one" class="btn btn-primary" href="infolist.do?count=${count}&type=1">下一页</a>
+						<c:if test="${page > 1}">
+							<a id="one" style="margin-right: 10%" class="btn btn-primary"
+								href="infolist.do?page=${page-1}">上一页</a>
 						</c:if>
-						<c:if test="${full== -1 && count >10}">
-							<a id="one" class="btn btn-primary" href="infolist.do?count=${count}&type=-1">上一页</a>
-						</c:if>
-						<c:if test="${full!=-1&&count>10}">
-							<a id="last" class="btn btn-primary" href="infolist.do?count=${count}&type=-1">上一页</a>
-                    		<a id="next" class="btn btn-primary" href="infolist.do?count=${count}&type=1">下一页</a>
+						<c:if test="${page < pagetotal}">
+							<a id="one" class="btn btn-primary"
+								href="infolist.do?page=${page+1}">下一页</a>
 						</c:if>
 					</div>
 				</div>

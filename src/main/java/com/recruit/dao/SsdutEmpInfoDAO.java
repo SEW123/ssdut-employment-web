@@ -16,7 +16,7 @@ public interface SsdutEmpInfoDAO {
 	@Select("select max(id) from ssdutempinfo where calory=#{calory};")
 	public int getCurrentIndex(@Param("calory")int calory);
 	
-	@Select("SELECT a.id,a.title from ssdutempinfo a join (SELECT id FROM `ssdutempinfo` ORDER BY id DESC LIMIT #{page},6) b on a.id=b.id;")
+	@Select("SELECT a.id,a.title from ssdutempinfo a join (SELECT id FROM `ssdutempinfo` ORDER BY id DESC LIMIT #{page},10) b on a.id=b.id;")
 	public List<SsdutEmpInfo> getPageList(int page);
 	
 	@Select("select id,title,ptime,content from ssdutempinfo where id=#{id};")

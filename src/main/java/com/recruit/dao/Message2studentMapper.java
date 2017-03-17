@@ -33,4 +33,5 @@ public interface Message2studentMapper {
     int updateByPrimaryKeySelective(Message2student record);
 
     int updateByPrimaryKey(Message2student record);
+    
 }

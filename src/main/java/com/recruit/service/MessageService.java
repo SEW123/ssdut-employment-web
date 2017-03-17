@@ -11,5 +11,5 @@ public interface MessageService {
 	
 	public int insertSelective(Message record);
 	
-	public void deleteMessageById(int id);
+	public int deleteMessageById(int id);
 }

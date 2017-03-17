@@ -25,4 +25,5 @@ public interface M2sService {
 	
 	public void insertMessage2student(Message2student record);
 	
+	
 }

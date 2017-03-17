@@ -84,7 +84,7 @@
                             }
 							
 			    o.removeClass('hover');
-                            alert("Copied text to clipboard:\n\n " + text);
+                            alert("通知内容已经复制到粘贴板上:\n\n " );
                         }
 
                         if (settings.clickAfter) {

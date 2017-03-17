@@ -33,9 +33,9 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		return this.messageMapper.selectAll();
 	}
-	public void deleteMessageById(int id) {
+	public int deleteMessageById(int id) {
 		// TODO Auto-generated method stub
-		this.messageMapper.deleteByPrimaryKey(id);
+		return this.messageMapper.deleteByPrimaryKey(id);
 				
 	}
 

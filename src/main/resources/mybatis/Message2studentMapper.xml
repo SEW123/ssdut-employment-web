@@ -192,4 +192,5 @@
   <update id="acceptOffer">
 update  message2student set is_accept_offer=#{2} where message_id=#{0} and student_id=#{1}
   </update>
+  
 </mapper>
