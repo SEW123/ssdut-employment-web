@@ -1,0 +1,32 @@
+/* 通知列表 */
+
+
+.cc_right .infolist {
+    width: 100%;
+    padding: 10px 50px;
+}
+.cc_right .infolist td  a{
+    color: #369;;
+}
+.cc_right .control-page {
+    width: 100%;
+    position: relative;
+}
+.cc_right .control-page a#last{
+    width: 70px;
+    position: absolute;
+    right: 50%;
+    margin-right: 10px;
+}
+.cc_right .control-page a#next{
+    width: 70px;
+    position: absolute;
+    left: 50%;
+    margin-left: 10px;
+}
+.cc_right .control-page a#one{
+    width: 70px;
+    position: absolute;
+    left:50%;
+    margin-left: -50px;
+}
